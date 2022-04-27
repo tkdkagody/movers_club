@@ -8,7 +8,7 @@ export const GET_OTHER_VIDEO = "GET_OTHER_VIDEO";
 //actions creator functions 
 
 export const getVideoInfo = (dataAll) => {
-    console.log(dataAll,"액션으로 들어오는 리스트")
+   // console.log(dataAll,"액션으로 들어오는 리스트")
     return {
         //todo
         type: GET_VIDEO_INFO,

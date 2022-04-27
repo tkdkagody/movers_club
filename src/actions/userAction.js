@@ -31,7 +31,7 @@ export const FETCH_TOKEN_REQUEST ="FETCH_TOKEN_REQUEST";
 //회원가입 request!!!!
 export const fetchToken = (token, email, name, profile) => dispatch => {
     //dispatch(fetchtTokenSuccess(token, email, name, profile))
-    console.log(profile,"ss")
+   // console.log(profile,"ss")
     axios
     .post(`https://api.moverse.club/v1/auth`
     ,{

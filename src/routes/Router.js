@@ -23,6 +23,7 @@ import MypageMoves from "../pages/MypageMoves";
 import MypageCollections from "../pages/MypageCollections";
 import { getVideoInfo, getClickedInfo } from "../actions/getVideoInfoAction";
 import  {videoInfoDummy}  from "../videoInfoDummy";
+import ScrollButton from "../components/ScrollButton/index.js";
 
 const MyRouter = () => {
 
@@ -60,7 +61,8 @@ const MyRouter = () => {
         </AppNav>
         <Routes>
             <Route path="/*" element={<Welcome/>} />
-            <Route path="/main" element={<MainPage/>} />
+            <Route path="/main" element={<MainPage/>} >
+            </Route>
             <Route path="/auth/google" element={<Google />}/>
             <Route path="/vdetail" element={<VideoDetail />}>
                 <Route path=":videoId"  />

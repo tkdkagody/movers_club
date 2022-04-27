@@ -35,8 +35,6 @@ const DetailInfo = ({data, handleClickCollection, bookMarkIcon}) => {
 
     const creatorArrCopied = [...data.creator];
 
-
-console.log(data,"Sdfsdf")
     const handleClickMoreCreator = () => {
         dispatch(openCreatorhModal());
         dispatch(getClickedInfo(data));
@@ -105,7 +103,14 @@ console.log(data,"Sdfsdf")
             <Desc>{data.story}</Desc>
             <GenreBox>
                 <div>Genre:</div>
-                {data.genre.map((genre,idx)=> <div key={idx}>{genre}</div>)}
+                {data.genre.map((gen,idx)=> {
+                    return(
+                        <div key={idx}>
+                            <span>{gen}</span>
+                            <label></label>
+                        </div>
+                    )
+                })}
             </GenreBox>
             <TagBox>
                 {data.tags.map((tag,idx)=> <div key={idx}>#{tag}</div>)}
@@ -273,22 +278,49 @@ const Desc = styled.div`
 
 `;
 const GenreBox = styled.div`
-    width: 168px;
-    height:24px;
+    width: 100%;
+    height: auto;
     margin-top: 20px;
     line-height: 24px;
     display: flex;
+    flex-direction: row;
+    align-content: stretch;
+    flex-wrap: wrap;
     &>div:nth-child(1){
         color:#90A0B7;
         margin-right: 7.5px;
+        width: 48px;
+        height: 24px;
+        font-size: 16px;
     }
-    &>div:nth-child(2){
+    &>div {
         display: flex;
-        &>span {
+        align-items: center;
+        justify-content: center;
+            &>span{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width:auto;
+                min-width:50px;
+                font-size: 14px;
+                margin-right: 8px;
+                color : #F8F8F8; 
+    }
+        &>label {
+            margin-right:10px ;
             display: block;
-            font-size: 14px;
-            margin-right: 8px;
+            width: 4px; 
+            height: 4px;
+            background-color: #24D982; 
+            border-radius: 50%;
         }
+        /* &>label:last-of-type {
+            display: block;
+                width:0px; 
+                height:0px;
+        } */
+
     }
 
     //초록색 구분점 삽입

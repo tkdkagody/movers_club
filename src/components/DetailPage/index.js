@@ -33,12 +33,7 @@ const DetailPage = ({data}) => {
         
     },[]);
 
-    useEffect(()=> {
-        setTimeout(()=> {
-            setRender(true)
-        },200)
-    },[])
-    
+
     const other = useSelector(state=> state.getVideoInfoReducer);
     const otherVideoData = other.otherVideo.otherVideo;
     // const pickedThree = otherVideoData.splice(0,3); 
@@ -83,10 +78,7 @@ const DetailPage = ({data}) => {
                             allowFullScreen
                             ></iframe>
                         </MainVideo>
-                        {
-                            render ? (<OtherVideoList data={otherVideoData.splice(0,3)}/>)
-                            : "로딩중"
-                        }
+                        <OtherVideoList data={otherVideoData.splice(0,3)}/>
                     </VideoBox>
                     <DetailInfo 
                         data={data[0]}

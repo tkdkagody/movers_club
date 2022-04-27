@@ -52,7 +52,6 @@ export const videoInitialState = {
     selectedVideo: null, 
     paramsData : {},
     otherVideo : [],
-
 }
 
 

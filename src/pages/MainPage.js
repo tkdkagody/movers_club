@@ -8,6 +8,7 @@ import MainSlider from "../components/MainSlider/MainSlider";
 import VideoList from '../components/VideoList';
 import { fetchBanner } from '../actions/bannerAction';
 import ExploreModal from "../components/Modal/ExploreModal";
+import ScrollButton from "../components/ScrollButton/index.js";
 
 
 const MainPage = () => {
@@ -35,7 +36,6 @@ const MainPage = () => {
 
     useEffect(()=> {
         setTimeout(()=> {
-    
             setRender(true);
         },200)
     },[])
@@ -56,16 +56,15 @@ const MainPage = () => {
     //바로 디스패치 해버리면 데이터가 짤리는 현상이 나타나서
     //개별 스크립트 내부에 모든 비디오리스트를 가지는 배열상태값 하나를 만들어 둠. 
     
+    if(videoArr && videoArr.length === 0){
+        setVideoArr(videoAllData);
+    }
 
 
     const activeCategory = (btn, idx) => {
-        
         if(btn === "All"){
             setVideoArr(videoAllData);
-        }else if(btn === undefined){
-            setVideoArr(videoAllData);
         }else {
-            
             const filteredData = videoAllData.filter((el) => {     
                 if(el.genre.indexOf(btn)  > -1 ){
                     return el;
@@ -77,7 +76,7 @@ const MainPage = () => {
 
         
       };
-
+      
 
 
     // const [sortDropOpen, setSortdropOpen] = useState(false);
@@ -103,7 +102,7 @@ const MainPage = () => {
     //     }
     // }    
     
-    console.log(videoArr,"hi")
+   
 if(render){
     return (
         <Container>
@@ -144,6 +143,7 @@ if(render){
                 <VideoList videoAllData={videoArr}/>
             </VContainer>
          {modalState.modalOpen ? <ExploreModal/> : null}
+         <ScrollButton/>
         </Container>
 
       
