@@ -13,8 +13,6 @@ const SelectDropdown = ({
         idx
 }) => {
  
-
-
     const registerState = useSelector(state => state.registerReducer);
     const dispatch = useDispatch();
 

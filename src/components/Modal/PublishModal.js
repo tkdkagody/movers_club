@@ -5,14 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     OpenLoginModal, OpenPublishModal,closePublishModal
 } from '../../actions/modalAction';
-
+import { 
+    registerNewDance,
+} from "../../actions/registerAction";
 
 
 const PublishModal = () => {
 
-
+    const state = useSelector(state => state.registerReducer);
     const modalState = useSelector(state => state.modalReducer);
     const dispatch = useDispatch();
+
 
     const handleClickCancle = () => {
         dispatch(closePublishModal());
@@ -20,7 +23,13 @@ const PublishModal = () => {
     
     const handleClickPublish = () => {
         //publish 하면 여기서 axios register
-        //잘 보내지면 아마 main으로 가던지 재렌더 하던지 
+
+        console.log(state.forms,"s")
+        //dispatch(registerNewDance(videoData))
+        dispatch(closePublishModal());
+          //잘 보내지면 아마 main으로 가던지 재렌더 하던지 
+        
+
     }
 
 

@@ -29,7 +29,6 @@ const RegisterInfo = ({registerState, idx}) => {
         values[index][event.target.name] = event.target.value ;
         dispatch(getDanceTitle(values));
         dispatch(getDanceStory(values))
-        console.log(index,"````")
     } 
 
       //장르 관련 
@@ -57,14 +56,14 @@ const RegisterInfo = ({registerState, idx}) => {
     const changeHandler = (checked, genreName, index) => {
         if(checked){
             const values = [...state.forms];
-            values[index].genres = [...isCheckedGenre, genreName];
+            values[index].genre = [...isCheckedGenre, genreName];
             setisCheckedGenre([...isCheckedGenre, genreName]);
             dispatch(getGenres(values));
         }else {
             const val = state.forms;
             console.log(val,"heheheh")
-            val[index].genres = val[index].genres.filter((el)=> el !== genreName); 
-            setisCheckedGenre(val[index].genres.filter((el)=> el !== genreName));
+            val[index].genre = val[index].genre.filter((el)=> el !== genreName); 
+            setisCheckedGenre(val[index].genre.filter((el)=> el !== genreName));
             dispatch(getGenres(val));
         }
     }
@@ -105,7 +104,7 @@ const RegisterInfo = ({registerState, idx}) => {
         if(!state.forms[index].searchInputValue){
             console.log("작업 노!");
         }else {  
-            const arr = state.forms[index].creators = [...creatorTagArr, val]
+            const arr = state.forms[index].creator = [...creatorTagArr, val]
             setCreatorArr(arr);
             const creator = state.forms[index].searchInputValue = "";
             dispatch(getCreator(creator));
@@ -127,7 +126,7 @@ const RegisterInfo = ({registerState, idx}) => {
         if(!state.forms[index].searchInputValue){
             console.log("작업 노!")
         }else {
-            const arr = state.forms[index].creators = [...creatorTagArr, val]
+            const arr = state.forms[index].creator = [...creatorTagArr, val]
             setCreatorArr(arr);
             const creator = state.forms[index].searchInputValue = "";
             dispatch(getCreator(creator));
@@ -141,7 +140,7 @@ const RegisterInfo = ({registerState, idx}) => {
     const ceatorRemoveTag = (tag, index) => {
         const newTags = [...creatorTagArr];
         newTags.splice(tag, 1);
-        const values = state.forms[index].creators = [...newTags]
+        const values = state.forms[index].creator = [...newTags]
         setCreatorArr(values);
         dispatch(getCreatorArr(values));
     }
@@ -162,7 +161,7 @@ const RegisterInfo = ({registerState, idx}) => {
         if(tagList.length >9 ){
             return ;
         }else {
-            const val = state.forms[index].tagList = [...tagList,tagItem]
+            const val = state.forms[index].tag = [...tagList,tagItem]
             dispatch(getTagList(val))
             setTagList([...tagList,tagItem]);
             const removeItem = state.forms[index].tagItem = "";
@@ -184,7 +183,7 @@ const RegisterInfo = ({registerState, idx}) => {
     const handleClickTagRemove = (tag, index) => {
         //태그 리무브 
 
-        const tags = state.forms[index].tagList ;
+        const tags = state.forms[index].tag ;
         tags.splice(tag,1);
         setTagList(tags);
         dispatch(getTagItem(tags));
@@ -196,27 +195,27 @@ const RegisterInfo = ({registerState, idx}) => {
             <TitleBox>
                 <Title>
                     <div>Dance Title</div>
-                    <div maxLength='5'>({registerState.danceTitle.length}/ 100)</div>
+                    <div maxLength='5'>({registerState.title.length}/ 100)</div>
                 </Title>
                 <TitleContent 
                     placeholder="Eg) Moon Walk"
                     onChange={event => handleInputChange(idx,event)}
-                    value={registerState.danceTitle}
-                    name="danceTitle"
+                    value={registerState.title}
+                    name="title"
                 ></TitleContent>
             </TitleBox>
             
             <StoryBox>
                 <StoryTitle>
                     <div>Dance Story</div>
-                    <div>({registerState.danceStory.length}/ 1000)</div>
+                    <div>({registerState.story.length}/ 1000)</div>
                 </StoryTitle>
                 <StoryContent 
-                    value={registerState.danceStory}
+                    value={registerState.story}
                     placeholder="Tell people what your choreography is about, how you came up with it, and where it is used."
                     onChange={event => handleInputChange(idx,event)}
                     type="text"
-                    name="danceStory"
+                    name="story"
                 ></StoryContent>
             </StoryBox>
             <GenreBox >
@@ -227,7 +226,7 @@ const RegisterInfo = ({registerState, idx}) => {
                     <input
                         value={
                                 isCheckedGenre.length === 0 ? `Choose the genre(s) of the choreography.`
-                                : state.forms[idx].genres}
+                                : state.forms[idx].genre}
                         readOnly    
                     ></input>
                     <img src="../../images/down_arrow.png" alt=""></img>
@@ -273,7 +272,7 @@ const RegisterInfo = ({registerState, idx}) => {
                 </CreatorContent>
             </CreatorBox>
             <CreatorTag>
-            { state.forms[idx].creators && state.forms[idx].creators.map((tag, tagindex) => (
+            { state.forms[idx].creator && state.forms[idx].creator.map((tag, tagindex) => (
                 <div key={tagindex}> 
                     <img src={tag.imgUrl} alt="" />
                     {tag.role !== "" ?   
@@ -320,7 +319,7 @@ const RegisterInfo = ({registerState, idx}) => {
                 
             </TagBox>
             <TagViewBox>
-                {state.forms[idx].tagList && state.forms[idx].tagList.map((el,tagindex)=> {
+                {state.forms[idx].tag && state.forms[idx].tag.map((el,tagindex)=> {
                     return (<TagMark  key={tagindex}>
                         {`#${el}`}
                         <TagRemoveImg 

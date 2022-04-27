@@ -4,6 +4,7 @@ import {
     GET_EMBED_JSON,
     VIEW_VIDEO_THUMNAIL,
     CLICK_AGREE_CHECKED,
+    GET_THUMNAIL_URL,
 
     GET_DANCE_TITLE,
     GET_DANCE_STORY,
@@ -20,6 +21,12 @@ import {
     ADD_REGISTER_FORM,
     DELETE_REGISTER_FORM,
     COPY_REGISTER_FORM,
+
+    ADD_REGISTER_FORM_POST,
+    DELETE_REGISTER_FORM_POST,
+    COPY_REGISTER_FORM_POST,
+
+
     SET_FORM_VALUES,
     INIT,
 
@@ -38,9 +45,11 @@ const registerReducer = ( state = registerinitialState, action ) => {
             {},
             state,
             {
-                videoUrl: action.payload,
+                video_url: action.payload,
             }
         );
+
+
 
         case EXTRACT_VIDEO_ID: 
         //todo
@@ -52,7 +61,14 @@ const registerReducer = ( state = registerinitialState, action ) => {
             }
         );
 
-
+        case GET_THUMNAIL_URL: 
+        return Object.assign(
+            {},
+            state,
+            {
+                thumbnail_url: action.payload,
+            }
+        )
 
 
         case VIEW_VIDEO_THUMNAIL: 
@@ -95,7 +111,7 @@ const registerReducer = ( state = registerinitialState, action ) => {
             {},
             state,
             {
-                danceTitle: action.payload,
+                title: action.payload,
             }
         );
 
@@ -106,7 +122,7 @@ const registerReducer = ( state = registerinitialState, action ) => {
             {},
             state,
             {
-                danceStory: action.payload,
+                story: action.payload,
             }
         );
 
@@ -126,7 +142,7 @@ const registerReducer = ( state = registerinitialState, action ) => {
             {},
             state,
             {
-                creators: action.payload,
+                creator: action.payload,
             }
         );
 
@@ -157,7 +173,7 @@ const registerReducer = ( state = registerinitialState, action ) => {
             {},
             state,
             {
-                genres: action.payload,
+                genre: action.payload,
             }
         );
             
@@ -169,7 +185,7 @@ const registerReducer = ( state = registerinitialState, action ) => {
             {},
             state,
             {
-                tagList: action.payload,
+                tag: action.payload,
             }
         );
 
@@ -222,10 +238,35 @@ const registerReducer = ( state = registerinitialState, action ) => {
         )
         
     
-        
-        
-        case INIT: 
-        return state; 
+ //post용 데이터 따로 만들기///  
+        case ADD_REGISTER_FORM_POST:
+            return Object.assign(
+                {},
+                state,
+                {
+                    postForms : [...state.postForms, action.payload]
+                }
+            );
+    
+            
+            case DELETE_REGISTER_FORM_POST:
+            return Object.assign(
+                {},
+                state,
+                {
+                    postForms : action.payload
+                }
+            )
+    
+            
+            case COPY_REGISTER_FORM_POST: 
+            return Object.assign(
+                {},
+                state,
+                {
+                    postForms: state.postForms.concat(JSON.parse(action.payload))
+                }
+            )
         
         default: 
         return state; 

@@ -8,6 +8,8 @@ export const EXTRACT_VIDEO_ID = "EXTRACT_VIDEO_ID";
 export const GET_EMBED_JSON = "GET_EMBED_JSON";
 export const VIEW_VIDEO_THUMNAIL = "VIEW_VIDEO_THUMNAIL";
 export const CLICK_AGREE_CHECKED = "CLICK_AGREE_CHECKED"
+export const GET_THUMNAIL_URL = "GET_THUMNAIL_URL";
+
 
 export const GET_DANCE_TITLE ="GET_DANCE_TITLE";
 export const GET_DANCE_STORY = "GET_DANCE_STORY";
@@ -22,6 +24,12 @@ export const GET_CREATOR_ARR = "GET_CREATOR_ARR";
 export const ADD_REGISTER_FORM = "ADD-REGISTER_FORM"; 
 export const DELETE_REGISTER_FORM = "DELETE_REGISTER_FORM";
 export const COPY_REGISTER_FORM = "COPY_REGISTER_FORM";
+
+//post
+export const ADD_REGISTER_FORM_POST = "ADD-REGISTER_FORM_POST"; 
+export const DELETE_REGISTER_FORM_POST = "DELETE_REGISTER_FORM_POST";
+export const COPY_REGISTER_FORM_POST = "COPY_REGISTER_FOR_POST"
+//post
 
 export const GET_CREATOR_LIST = "GET_CREATOR_LIST"; 
 
@@ -41,6 +49,7 @@ export const extractVideoUrl = (index,urlobj) => {
     }
 }
 
+
 export const extractVideoId = (videoIdobj) => {
     return {
         //todo 
@@ -56,6 +65,17 @@ export const viewVideoThumnail = (el) => {
         type: VIEW_VIDEO_THUMNAIL,
         payload: {
             viewVideo : el,
+        } 
+        
+    }
+}
+
+export const getThumnailUrl = (url) => {
+    return {
+        //todo
+        type: GET_THUMNAIL_URL,
+        payload: {
+            viewVideo : url,
         } 
         
     }
@@ -87,7 +107,7 @@ export const getDanceTitle  =  (title) => {
     return {
         //todo
         type: GET_DANCE_TITLE,
-        payload: title.danceTitle
+        payload: title.title
     }
 }
 
@@ -173,18 +193,18 @@ export const addRegisterForm = () => {
     return {
         type: ADD_REGISTER_FORM, 
         payload: {
-            videoUrl : '',
+            video_url : '',
             videoId : '',
             viewVideo : false,
             agreechecked : false,  
-            danceTitle : '', 
-            danceStory : '',
-            genres : [],
-            creators : [],   //이 배열을 주로 사용하게 될듯 !!(이름, 이미지, 롤 포함함)
+            title : '', 
+            story : '',
+            genre : [],
+            creator : [],   //이 배열을 주로 사용하게 될듯 !!(이름, 이미지, 롤 포함함)
             searchInputValue : '',
             searchImg:'',
             roleValue: "Main Director",
-            tags:[],
+            tag:[],
         }
     }
 }
@@ -203,7 +223,39 @@ export const copyRegisterForm = (value) => {
     }
 }
 
+///POST용 데이터 ///
+export const addRegisterFormPost = () => {
+    return {
+        type: ADD_REGISTER_FORM_POST, 
+        payload: {
+            video_url:"",
+            thumbnail_url:"",
+            title:"",
+            story:"",
+            genre:[],
+            tag:[],
+            creator:[],
+            agreement:false, 
+        }
+    }
+}
 
+export const deleteRegisterFormPost = (value)=>{
+    return { 
+        type:DELETE_REGISTER_FORM_POST,
+        payload: value,
+
+}} 
+
+export const copyRegisterFormPost = (value) => {
+    return { 
+        type:COPY_REGISTER_FORM_POST,
+        payload: JSON.stringify(value)
+    }
+}
+
+
+///POST용 데이터 ///
 
 
 export const getCreatorList = (value) => {
@@ -221,4 +273,17 @@ export const fetchCreatorList = () => dispatch => {
         dispatch(getCreatorList(res.data.data.userList))
     })
     .catch(err => console.log(err,"크리에이터에러"))
+}
+
+export const registerNewDance = (token, videoData) => dispatch => {
+    axios
+    .post(`https://api.moverse.club/v1/dances`,videoData,{
+        headers: {
+            Authorization : `Bearer ${token}`
+        },
+    })
+    .then((res)=> {
+        console.log(res.data);
+    })
+    .catch(err => console.log(err,"댄스등록 에러"))
 }

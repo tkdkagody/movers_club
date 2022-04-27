@@ -36,9 +36,9 @@ const RegisterVideo = ({ handleClickUpload, registerState, idx}) => {
             <UploadBox>
                 <input placeholder="YouTube URL"
                 type="text"
-                value={state.forms.videoUrl}
+                value={state.forms.video_url}
                 onChange={event => handleChangeVideoUrl(idx,event)}
-                name="videoUrl"
+                name="video_url"
                 ref={inputFocus}
                 ></input>
                 <div onClick={(event) => handleClickUpload(idx, event)}>Upload</div>

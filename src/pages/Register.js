@@ -16,6 +16,8 @@ import {
     setFormValues,
     extractVideoUrl,
     fetchCreatorList,  //creator리스트
+    registerNewDance,
+    getThumnailUrl,
 } from "../actions/registerAction";
 import {
     OpenLoginModal, OpenPublishModal,closePublishModal
@@ -32,9 +34,11 @@ const Register = () => {
 
     //업로드 버튼 클릭
     const handleClickUpload = (index,event) => {
+
         const values = [...state.forms];
+        console.log(values)
         const endpoint = 'https://www.youtube.com/oembed';
-        fetch(`${endpoint}?url=${values[index].videoUrl}`, 
+        fetch(`${endpoint}?url=${values[index].video_url}`, 
         { 
             method: 'get',
             cache: 'no-cache', 
@@ -45,12 +49,19 @@ const Register = () => {
         .then((res) => {
             if(res) {
                 const extractId = [...state.forms];
-                extractId[index].videoId = extractId[index].videoUrl.split("be/")[1]
+                extractId[index].videoId = extractId[index].video_url.split("be/")[1]
                 dispatch(extractVideoId(extractId)); 
 
                 const view = [...state.forms];
                 view[index].viewVideo = true
                 dispatch(viewVideoThumnail(view));
+
+                const thum = [...state.forms];
+                thum[index].thumbnail_url = res.thumbnail_url;
+                dispatch(getThumnailUrl(thum));
+
+                const postThum = [...state.postForms];
+
             }
         })
         .catch((err) => console.log("ajax error -> ", err)) ;
@@ -59,6 +70,9 @@ const Register = () => {
 
     //publish버튼 클릭시, 서버로 url과 + 유뷰브에서 받은 정보 + 작성한 정보 post
     const handleClickPublish = () => {
+        
+
+
         console.log(state.forms,"폼");
         console.log(modalState.publishModalOpen,"모달?")
         dispatch(OpenPublishModal());
@@ -73,7 +87,7 @@ const Register = () => {
         deleteObj[index].viewVideo = false;
         dispatch(DeleteVideoThumnail(deleteObj));
         const values = [...state.forms];
-        values[index].videoUrl = "" ;
+        values[index].video_url = "" ;
         dispatch(extractVideoUrl(values));  
     }
 
@@ -152,7 +166,7 @@ const Register = () => {
         })}
 
             <PublishBtnActive>
-                    <div onClick={handleClickPublish}>
+                    <div onClick={()=>handleClickPublish()}>
                         <img src="../../images/publish.png" alt=""></img>
                     </div>
                     <div>Publish</div>

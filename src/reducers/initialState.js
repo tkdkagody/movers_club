@@ -28,22 +28,32 @@ export const userInitialState = {
 
 export const registerinitialState = {
     forms: [{
-            videoUrl : '',
-            videoId : '',
+            video_url : '',  //ok
+            videoId : '',   //
             viewVideo : false,
             agreechecked : false,  
-            danceTitle : '', 
-            danceStory : '',
-            genres : new Array(0),
-            creators : [],   //이 배열을 주로 사용하게 될듯 !!(이름, 이미지, 롤 포함함)
+            title : '', 
+            story : '',
+            genre : new Array(0),
+            creator : [],   //이 배열을 주로 사용하게 될듯 !!(이름, 이미지, 롤 포함함)
             searchInputValue : '',  //크리에이터 이름
             searchImg:'', //크리에이터 이미지 
             roleValue: "Main Director", //크리에이터 롤 
-            tagList:[],
+            tag:[],  //tagList
             tagItem: "",
+            thumbnail_url:""
         }],
-
     creatorList : [],
+    postForms: [{
+        video_url:"",
+        thumbnail_url:"",
+        title:"",
+        story:"",
+        genre:[],
+        tag:[],
+        creator:[],
+        agreement:false, 
+    }],
 
         
 }
