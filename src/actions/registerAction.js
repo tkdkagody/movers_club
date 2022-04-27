@@ -196,7 +196,7 @@ export const addRegisterForm = () => {
             video_url : '',
             videoId : '',
             viewVideo : false,
-            agreechecked : false,  
+            agreement : false,  
             title : '', 
             story : '',
             genre : [],

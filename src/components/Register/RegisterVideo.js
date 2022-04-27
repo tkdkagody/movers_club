@@ -19,6 +19,10 @@ const RegisterVideo = ({ handleClickUpload, registerState, idx}) => {
         const values = [...state.forms];
         values[index][event.target.name] = event.target.value ;
         dispatch(extractVideoUrl(index, values));
+
+        const postVal = [...state.postForms];
+        postVal[index][event.target.name] = event.target.value ;
+        dispatch(extractVideoUrl(index, values));
     }
     const inputFocus = useRef(null);
     

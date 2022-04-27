@@ -98,7 +98,7 @@ const registerReducer = ( state = registerinitialState, action ) => {
             {},
             state,
             {
-                agreechecked: action.payload,
+                agreement: action.payload,
             }
         );
      

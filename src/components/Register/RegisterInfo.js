@@ -29,9 +29,13 @@ const RegisterInfo = ({registerState, idx}) => {
         values[index][event.target.name] = event.target.value ;
         dispatch(getDanceTitle(values));
         dispatch(getDanceStory(values))
+        const postVal = [...state.postForms];
+        postVal[index][event.target.name] = event.target.value ;
+        dispatch(getDanceTitle(postVal));
+        dispatch(getDanceStory(postVal))
     } 
 
-      //장르 관련 
+      //장르드롭 관련 
       const genreOptions = [
         {key:1, genre: "Ballet"},
         {key:2, genre: "B-boy"},
@@ -59,12 +63,19 @@ const RegisterInfo = ({registerState, idx}) => {
             values[index].genre = [...isCheckedGenre, genreName];
             setisCheckedGenre([...isCheckedGenre, genreName]);
             dispatch(getGenres(values));
+
+            const postVal = [...state.postForms];
+            postVal[index].genre = [...isCheckedGenre, genreName];
+            dispatch(getGenres(postVal));
         }else {
             const val = state.forms;
-            console.log(val,"heheheh")
             val[index].genre = val[index].genre.filter((el)=> el !== genreName); 
             setisCheckedGenre(val[index].genre.filter((el)=> el !== genreName));
             dispatch(getGenres(val));
+
+            const postVal = state.forms;
+            postVal[index].genre = postVal[index].genre.filter((el)=> el !== genreName); 
+            dispatch(getGenres(postVal));
         }
     }
 
@@ -73,30 +84,13 @@ const RegisterInfo = ({registerState, idx}) => {
     //크리에이터 검색 드롭다운*********************
      const [selectedOption, setSelectedOption] = useState("");  //selectOption
 
-    
-    //나중에 값을 get요청 해서 받아오고, 셋서치옵션으로 넣어주기 : 전체 크리에이터 검색하는 부분 !
-    const searchOptions = [
-        {key:1, creator: "1virus", img:"https://velog.velcdn.com/images/beablessing/post/940f37bf-cf0e-498a-bf67-093e844e0dcb/image.png"},
-        {key:2, creator: "2lillian", img:"https://velog.velcdn.com/images/beablessing/post/940f37bf-cf0e-498a-bf67-093e844e0dcb/image.png"},
-        {key:3, creator: "3dahee", img:"https://velog.velcdn.com/images/beablessing/post/940f37bf-cf0e-498a-bf67-093e844e0dcb/image.png"},
-        {key:4, creator: "4aiki", img:"https://velog.velcdn.com/images/beablessing/post/940f37bf-cf0e-498a-bf67-093e844e0dcb/image.png"},
-        {key:5, creator: "5honeyj", img:"https://velog.velcdn.com/images/beablessing/post/940f37bf-cf0e-498a-bf67-093e844e0dcb/image.png"},
-        {key:6, creator: "6monika", img:"https://velog.velcdn.com/images/beablessing/post/940f37bf-cf0e-498a-bf67-093e844e0dcb/image.png"},
-        {key:7, creator: "7viru", img:"https://velog.velcdn.com/images/beablessing/post/940f37bf-cf0e-498a-bf67-093e844e0dcb/image.png"},
-        {key:8, creator: "8viroos", img:"https://velog.velcdn.com/images/beablessing/post/940f37bf-cf0e-498a-bf67-093e844e0dcb/image.png"},
-        {key:9, creator: "9viruang", img:"https://velog.velcdn.com/images/beablessing/post/940f37bf-cf0e-498a-bf67-093e844e0dcb/image.png"},
-        {key:10, creator: "10virillian", img:"https://velog.velcdn.com/images/beablessing/post/940f37bf-cf0e-498a-bf67-093e844e0dcb/image.png"},
-        {key:11, creator: "11virukiii", img:"https://velog.velcdn.com/images/beablessing/post/940f37bf-cf0e-498a-bf67-093e844e0dcb/image.png"},
-        {key:12, creator: "12vike", img:"https://velog.velcdn.com/images/beablessing/post/940f37bf-cf0e-498a-bf67-093e844e0dcb/image.png"},
-        {key:13, creator: "13virang", img:"https://velog.velcdn.com/images/beablessing/post/940f37bf-cf0e-498a-bf67-093e844e0dcb/image.png"},
-    ];
-
     //creator 태그 생성 
     const [nameDropOpen, setNameDropOpen] = useState(false);
     //creator 태그 담을 배열
      const [creatorTagArr, setCreatorArr] = useState([]);
     const clickCreatorAddBtn = (index) => {
         const val = {
+            //크리에이터 post데이터 안에 key값 변경시 이부분 수정하면 됨
             name: state.forms[index].searchInputValue,
             imgUrl: state.forms[index].searchImg,
             role: state.forms[index].roleValue,
@@ -111,7 +105,11 @@ const RegisterInfo = ({registerState, idx}) => {
             const role = state.forms[index].roleValue = 'Main Director';
             dispatch(getCreatorRole(role));
             setNameDropOpen(false);
-            dispatch(getCreatorArr(arr));         
+            dispatch(getCreatorArr(arr));    
+
+            //post 데이터 추가 !!! 
+            const creatorPost = state.postForms[index].creator = [...creatorTagArr, val]; 
+            dispatch(getCreatorArr(creatorPost));
         }
     }
    
@@ -134,6 +132,9 @@ const RegisterInfo = ({registerState, idx}) => {
             dispatch(getCreatorRole(role));
             setNameDropOpen(false);
             dispatch(getCreatorArr(arr));
+
+            const postArr = state.postForms[index].creator = [...creatorTagArr, val]
+            dispatch(getCreatorArr(postArr));
         }        
     }
 
@@ -143,6 +144,8 @@ const RegisterInfo = ({registerState, idx}) => {
         const values = state.forms[index].creator = [...newTags]
         setCreatorArr(values);
         dispatch(getCreatorArr(values));
+        const postVal = state.postForms[index].creator = [...newTags]
+        dispatch(getCreatorArr(postVal));
     }
     
 
@@ -167,6 +170,9 @@ const RegisterInfo = ({registerState, idx}) => {
             const removeItem = state.forms[index].tagItem = "";
             dispatch(getTagItem(removeItem));
             setTagItem("")
+
+            const postVal = state.postForms[index].tag = [...tagList,tagItem]
+            dispatch(getTagList(postVal))
         }
         
     }
@@ -181,13 +187,15 @@ const RegisterInfo = ({registerState, idx}) => {
     }
 
     const handleClickTagRemove = (tag, index) => {
-        //태그 리무브 
-
         const tags = state.forms[index].tag ;
         tags.splice(tag,1);
         setTagList(tags);
         dispatch(getTagItem(tags));
         setTagItem("")
+
+        const postVal = state.postForms[index].tag ;
+        postVal.splice(tag,1);
+        dispatch(getTagItem(postVal));
     }
 
     return(

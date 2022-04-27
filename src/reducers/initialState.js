@@ -31,7 +31,7 @@ export const registerinitialState = {
             video_url : '',  //ok
             videoId : '',   //
             viewVideo : false,
-            agreechecked : false,  
+            agreement : false,  
             title : '', 
             story : '',
             genre : new Array(0),
@@ -44,6 +44,7 @@ export const registerinitialState = {
             thumbnail_url:""
         }],
     creatorList : [],
+    
     postForms: [{
         video_url:"",
         thumbnail_url:"",

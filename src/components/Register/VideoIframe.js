@@ -17,9 +17,13 @@ const VideoIframe = ({registerState, idx} ) => {
 
    const handleCheckboxChange = (event, index) => {
        const values = [...state.forms];
-        values[index].agreechecked = event.target.checked;
+        values[index].agreement = event.target.checked;
         setBeChecked(event.target.checked);
         dispatch(clickAgreeChecked(values));
+
+        const postVal = [...state.postForms];
+        postVal[index].agreement = event.target.checked;
+        dispatch(clickAgreeChecked(postVal));
     }
 
     return(

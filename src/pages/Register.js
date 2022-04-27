@@ -13,6 +13,11 @@ import {
     addRegisterForm,
     deleteRegisterForm,
     copyRegisterForm,
+
+    addRegisterFormPost,
+    deleteRegisterFormPost,
+    copyRegisterFormPost,
+
     setFormValues,
     extractVideoUrl,
     fetchCreatorList,  //creator리스트
@@ -31,12 +36,15 @@ const Register = () => {
     const state = useSelector(state => state.registerReducer);
     const modalState = useSelector(state => state.modalReducer);
     const dispatch = useDispatch();
-
     //업로드 버튼 클릭
+
+
+
     const handleClickUpload = (index,event) => {
 
+
         const values = [...state.forms];
-        console.log(values)
+       
         const endpoint = 'https://www.youtube.com/oembed';
         fetch(`${endpoint}?url=${values[index].video_url}`, 
         { 
@@ -61,7 +69,8 @@ const Register = () => {
                 dispatch(getThumnailUrl(thum));
 
                 const postThum = [...state.postForms];
-
+                postThum[index].thumbnail_url = res.thumbnail_url;
+                dispatch(getThumnailUrl(postThum));
             }
         })
         .catch((err) => console.log("ajax error -> ", err)) ;
@@ -70,14 +79,9 @@ const Register = () => {
 
     //publish버튼 클릭시, 서버로 url과 + 유뷰브에서 받은 정보 + 작성한 정보 post
     const handleClickPublish = () => {
-        
-
-
-        console.log(state.forms,"폼");
-        console.log(modalState.publishModalOpen,"모달?")
         dispatch(OpenPublishModal());
-
-       
+        console.log(state.postForms,"포스트폼 잘 들어가나?");
+        console.log(state.forms,"일반폼")
     }
    
 
@@ -94,6 +98,7 @@ const Register = () => {
 //폼 추가
     const clickAddRegister = () => {
         dispatch(addRegisterForm());
+        dispatch(addRegisterFormPost());
     }
 
 //해당 폼 삭제
@@ -101,12 +106,17 @@ const Register = () => {
         const values = [...state.forms];
         values.splice(idx,1);
         dispatch(deleteRegisterForm(values));
+        const postVal = [...state.postForms];
+        postVal.splice(idx,1);
+        dispatch(deleteRegisterFormPost(postVal));
     }
 
 //해당 폼 복사 
     const clickCopyRegister = (idx) => {
         const val = [...state.forms];
         dispatch(copyRegisterForm(val[idx]));
+        const postVal = [...state.postForms];
+        dispatch(copyRegisterFormPost(postVal[idx]));
     }
 
 
