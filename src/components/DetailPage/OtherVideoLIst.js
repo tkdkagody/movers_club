@@ -2,31 +2,48 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getVideoInfo, getClickedInfo, getParamsData,getOtherVideo } from "../../actions/getVideoInfoAction";
 import { useDispatch, useSelector} from "react-redux";
-import { useParams } from "react-router";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 
-const OtherVideoList = ({data}) => { 
-   // console.log(data); //index(detailpage)에서 받아옴 depth:2
+const OtherVideoList = () => { 
+    const params = useParams();
     const navigate = useNavigate();
 
     const clickOtherMoves = (id) => {
-     //   console.log(id);
+        console.log(id)
         navigate(`/vdetail/${id}`)
     }
+    const video = useSelector(state=> state.getVideoInfoReducer);
+    //console.log(video.otherVideo.otherVideo.slice(0,3))
+    const list =  video && video.videoData.videoData.filter((el)=> el.id !== Number(params.videoId))
+//console.log(list)
 
+    const [render, setRender] = useState(false);
 
-    return(
-        <Container>
-            <TextBox>Other Moves</TextBox>
-            <VideoBox>
-                {data.map((el, idx)=> {
-                    return (
-                        <Video src={el.Thum} alt="" onClick={()=>clickOtherMoves(el.id)}></Video>
-                    )
-                })}
-            </VideoBox>
-        </Container>
-    )
+    useEffect(()=> {
+        setTimeout(()=> {
+            setRender(true)
+        },200)
+    },[]);
+
+    if(render){
+        return(
+            <Container>
+                <TextBox>Other Moves</TextBox>
+                <VideoBox>
+                    {list.slice(0,3).map((el, idx)=> {
+                        return (
+                            <Video key={el.id} src={el.videoThum} alt="" onClick={()=>clickOtherMoves(el.id)}></Video>
+                        )
+                    })}
+                </VideoBox>
+            </Container>
+        )
+    }else {
+        return(
+            <>로딩중.......</>
+        )
+    }
+    
 
 
     

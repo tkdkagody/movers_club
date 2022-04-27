@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from 'styled-components';
 import { useDispatch, useSelector } from "react-redux";
 import { 
@@ -11,6 +11,7 @@ import {
     getGenres ,
     getTagList,
     getTagItem,
+    fetchCreatorList,  //creator리스트
 } from "../../actions/registerAction";
 import SelectDropdown from "./SelectDropdown";
 import RoleDropdown from "./RoleDropdown";
@@ -69,8 +70,11 @@ const RegisterInfo = ({registerState, idx}) => {
     }
 
 
+
     //크리에이터 검색 드롭다운*********************
      const [selectedOption, setSelectedOption] = useState("");  //selectOption
+
+    
     //나중에 값을 get요청 해서 받아오고, 셋서치옵션으로 넣어주기 : 전체 크리에이터 검색하는 부분 !
     const searchOptions = [
         {key:1, creator: "1virus", img:"https://velog.velcdn.com/images/beablessing/post/940f37bf-cf0e-498a-bf67-093e844e0dcb/image.png"},
@@ -256,7 +260,6 @@ const RegisterInfo = ({registerState, idx}) => {
                 </CreatorTitle>
                 <CreatorContent>
                     <SelectDropdown
-                        searchOptions={searchOptions}
                         onChange={(item,idx)=> setSelectedOption(item,idx)}
                         clickPlusBtn={()=>clickPlusBtn(idx)}
                         nameDropOpen={nameDropOpen}
@@ -309,7 +312,7 @@ const RegisterInfo = ({registerState, idx}) => {
                         value={state.forms[idx].tagItem}
                         onChange={(e)=>onChangeTag(e, idx)}
                         onKeyPress={(e)=>onKeyPress(e,idx)}
-                        maxLength={10}
+                        maxLength={30}
                         ></input>
                     </Tag>
                     <AddBtn onClick={() => handleClickTagAdd(idx)}>Add</AddBtn>

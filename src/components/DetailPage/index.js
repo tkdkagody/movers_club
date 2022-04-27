@@ -17,27 +17,14 @@ import {
 const DetailPage = ({data}) => { 
     const params = useParams();
     const state = useSelector(state => state.modalReducer);  //모달
-    const [render, setRender] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    // const videoState = useSelector(state=> state.getVideoInfoReducer);
-    // const videoAllData = videoState.videoData.videoData;
-
-    
-
+    const video = useSelector(state=> state.getVideoInfoReducer);
+    const List = video && video.videoData.videoData.filter((el)=> el.id !== Number(params.videoId))
 
     useEffect(()=> {
-        //get othervideos => dispatch 
-        dispatch(getOtherVideo(otherVideoInfoDummy));  //othervideo정보 넣어줌
-        
+        dispatch(getOtherVideo(List));  //othervideo정보 넣어줌
     },[]);
-
-
-    const other = useSelector(state=> state.getVideoInfoReducer);
-    const otherVideoData = other.otherVideo.otherVideo;
-    // const pickedThree = otherVideoData.splice(0,3); 
-    // console.log(pickedThree,"?");
 
 
     //엑스 버튼 클릭시 => 메인페이지로
@@ -61,6 +48,7 @@ const DetailPage = ({data}) => {
             //useEffect해서 bookmark값 먼저 가져와야 하나?
         }
     }
+    
 
     return(
         <Container>
@@ -70,7 +58,7 @@ const DetailPage = ({data}) => {
                 </BackContent>
                 <ModalContent>
                     <VideoBox>
-                        <MainVideo>
+                        <MainVideo key={data[0].id}>
                         <iframe
                             title="myFrame"
                             src={`https://youtube.com/embed/${data[0].videoId}`}
@@ -78,7 +66,7 @@ const DetailPage = ({data}) => {
                             allowFullScreen
                             ></iframe>
                         </MainVideo>
-                        <OtherVideoList data={otherVideoData.splice(0,3)}/>
+                        <OtherVideoList />
                     </VideoBox>
                     <DetailInfo 
                         data={data[0]}
@@ -120,8 +108,8 @@ const Container = styled.div`
 const ModalWrap = styled.div`
     position: fixed;
     width: 1501px;
-    height: 750px;
-    //min-height: 100vh;
+    min-height: 750px;
+    height: auto; 
     top: 13%;
     left: 10%;
     z-index:20;

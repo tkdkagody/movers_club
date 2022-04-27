@@ -42,6 +42,9 @@ export const registerinitialState = {
             tagList:[],
             tagItem: "",
         }],
+
+    creatorList : [],
+
         
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import RegisterInfo from "../components/Register/RegisterInfo";
@@ -14,7 +14,8 @@ import {
     deleteRegisterForm,
     copyRegisterForm,
     setFormValues,
-    extractVideoUrl
+    extractVideoUrl,
+    fetchCreatorList,  //creator리스트
 } from "../actions/registerAction";
 import {
     OpenLoginModal, OpenPublishModal,closePublishModal
@@ -23,7 +24,6 @@ import PublishModal from "../components/Modal/PublishModal";
 
 
 
-//axios.defaults.withCredentials = true;  //쿠키라서 여긴 없어도 됨 
 const Register = () => {
 
     const state = useSelector(state => state.registerReducer);
@@ -96,7 +96,12 @@ const Register = () => {
     }
 
 
-//console.log(state.forms ,"??????????????????");
+    //크리에이터 리스트 요청하기 
+
+    useEffect(()=> {
+        dispatch(fetchCreatorList())
+    },[])
+
 
 
 

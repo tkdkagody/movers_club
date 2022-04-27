@@ -30,8 +30,8 @@ const Google = ({handleClickGoogle}) => {
   
 
   const responseGoogle = (res) => {
-    console.log(res.tokenId, "구글tokenId")
-    console.log(res.accessToken,"구글액토")
+    // console.log(res.tokenId, "구글tokenId")
+    // console.log(res.accessToken,"구글액토")
     if(res.accessToken && res.profileObj.email && res.profileObj.name &&res.profileObj.imageUrl){
       dispatch(fetchToken(
         res.accessToken, res.profileObj.email,res.profileObj.name,res.profileObj.imageUrl

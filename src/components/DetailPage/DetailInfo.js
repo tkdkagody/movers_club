@@ -81,7 +81,8 @@ const DetailInfo = ({data, handleClickCollection, bookMarkIcon}) => {
                         </div>
                     </CreatorInfo>)} </>
                     :
-                    <> {creatorArrCopied.splice(0,5).map((el,id)=> <CreatorInfo key={el.id}>
+                    <> {creatorArrCopied.splice(0,5).map((el,id)=> 
+                    <CreatorInfo key={el.id}>
                         <img src={el.imgUrl} alt=""></img>
                         <div>
                             <span>{el.name}</span>
@@ -330,8 +331,9 @@ const GenreBox = styled.div`
 const TagBox = styled.div`
     width: 100%;
     height:32px;
-    margin-top: 48px;
+    margin-top: 24px;
     display: flex;
+    margin-bottom: 20px;
     &>div {
         width:75px;
         height: 32px;

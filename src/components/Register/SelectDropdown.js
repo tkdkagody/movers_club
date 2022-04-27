@@ -5,24 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCreator,getCreatorImg } from "../../actions/registerAction";
 
 
-// const SelectDropdown = React.forwardRef( ({
-//     searchOptions,
-//     onChange,
-//     selectedKey,
-//     dropOpen,
-//     setDropOpen,
-//     setSelectCreator,
-// }, ref) => {
-
-
 const SelectDropdown = ({
-        searchOptions,
         onChange,
         clickPlusBtn,
         nameDropOpen,
         setNameDropOpen,
         idx
 }) => {
+ 
 
 
     const registerState = useSelector(state => state.registerReducer);
@@ -48,7 +38,8 @@ const SelectDropdown = ({
 
     //크리에이터 검색 박스 클릭시 드롭다운 오픈!
     const clickDropBox = (index) => {
-        if(registerState.forms[index].searchInputValue.length <=1){
+        if(registerState.forms[index].searchInputValue && registerState.forms[index].searchInputValue.length <=1){
+            console.log(registerState.forms[index].searchInputValue)
             setNameDropOpen(false)
         }else {
             setNameDropOpen(prev => !prev);
@@ -57,15 +48,14 @@ const SelectDropdown = ({
 
     //크리에이터 이름 검색시 드롭다운 클릭시 밸류값 담기 ! 
     const onItemSelected = (option,index) => {
-         onChange !== undefined && onChange(option.key);  
+         onChange !== undefined && onChange(option.id);  
          const values = registerState.forms;
-         values[index].searchInputValue = option.creator
+         values[index].searchInputValue = option.nickname
          onChange !== undefined && dispatch(getCreator(values));
          setNameDropOpen(false);
          const val = registerState.forms;
-         val[index].searchImg = option.img; 
+         val[index].searchImg = option.avatar_url; 
          dispatch(getCreatorImg(val));
-
     }
 
 
@@ -102,23 +92,24 @@ const SelectDropdown = ({
                      onClick={clickPlusBtn}
                     >Add '{registerState.forms[idx].searchInputValue }' manually</div>
                 </div>
-            {searchOptions
+            {registerState.creatorList && registerState.creatorList
             .filter((val) => {
                 if(registerState.forms[idx].searchInputValue ===""){
                     return val;
-                }else if(val.creator.toLowerCase().includes(registerState.forms[idx].searchInputValue.toLowerCase())){
+                }else if(val.nickname.toLowerCase().includes(registerState.forms[idx].searchInputValue.toLowerCase())){
                     return val;
                 }
             })
             .map((opt)=> {
+                console.log(opt,"213123123")
                 return(
-                    <span key={opt.key} 
+                    <span key={opt.id} 
                         onClick={()=> onItemSelected(opt,idx)} 
                         onMouseDown={preventFocusMove}
                         color={"#24D982"}
                     >
-                        <CreatorImg src={opt.img} alt=""></CreatorImg>
-                        <CreatorName>{opt.creator}</CreatorName>
+                        <CreatorImg src={opt.avatar_url} alt=""></CreatorImg>
+                        <CreatorName>{opt.nickname}</CreatorName>
                     </span>
                 )
             })}

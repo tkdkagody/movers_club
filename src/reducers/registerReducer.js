@@ -23,6 +23,8 @@ import {
     SET_FORM_VALUES,
     INIT,
 
+    GET_CREATOR_LIST,
+
 } from '../actions/registerAction';
 import { registerinitialState } from "./initialState";
 
@@ -207,6 +209,15 @@ const registerReducer = ( state = registerinitialState, action ) => {
             state,
             {
                 forms: state.forms.concat(JSON.parse(action.payload))
+            }
+        )
+
+        case GET_CREATOR_LIST :
+        return Object.assign(
+            {},
+            state,
+            {
+                creatorList : action.payload
             }
         )
         

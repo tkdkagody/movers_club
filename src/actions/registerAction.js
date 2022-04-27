@@ -1,4 +1,6 @@
 import { registerinitialState } from "../reducers/initialState";
+import axios from "axios";
+
 
 //action types 
 export const EXTRACT_VIDEO_URL = "EXTRACT_VIDEO_URL";
@@ -20,6 +22,8 @@ export const GET_CREATOR_ARR = "GET_CREATOR_ARR";
 export const ADD_REGISTER_FORM = "ADD-REGISTER_FORM"; 
 export const DELETE_REGISTER_FORM = "DELETE_REGISTER_FORM";
 export const COPY_REGISTER_FORM = "COPY_REGISTER_FORM";
+
+export const GET_CREATOR_LIST = "GET_CREATOR_LIST"; 
 
 
 
@@ -202,3 +206,19 @@ export const copyRegisterForm = (value) => {
 
 
 
+export const getCreatorList = (value) => {
+    return {
+        type: GET_CREATOR_LIST, 
+        payload : value
+    }
+}
+
+export const fetchCreatorList = () => dispatch => {
+    axios
+    .get(`https://api.moverse.club/v1/users?page=5`)
+    .then((res)=> {
+        //console.log(res.data.data.userList,"크리에이터리스트");
+        dispatch(getCreatorList(res.data.data.userList))
+    })
+    .catch(err => console.log(err,"크리에이터에러"))
+}

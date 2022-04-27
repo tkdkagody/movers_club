@@ -71,6 +71,7 @@ const MyRouter = () => {
             <Route path="/search" element={<SearchPage />} />
             <Route path="/mypage/mycollections" element={<MypageCollections />} />
             <Route path="/mypage/mymoves" element={<MypageMoves />} />
+            <Route path="/mypage" element={<MypageMoves />} />
             <Route path="/invite" element={<InvitePage />} />
             <Route path="/edit_profile" element={<EditPage />} />
             <Route path="/setting" element={<SetPage />} ></Route>
