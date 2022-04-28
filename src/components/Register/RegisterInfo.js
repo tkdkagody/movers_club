@@ -333,7 +333,7 @@ const RegisterInfo = ({registerState, idx}) => {
             <TagViewBox>
                 {state.forms[idx].tag && state.forms[idx].tag.map((el,tagindex)=> {
                     return (<TagMark  key={tagindex}>
-                        {`#${el}`}
+                        <TagText>{`#${el}`}</TagText>
                         <TagRemoveImg 
                             src="https://velog.velcdn.com/images/beablessing/post/02197200-ff9a-45ee-b175-64ed5a0aacbb/image.png"
                             alt=""
@@ -358,41 +358,7 @@ const RegisterInfo = ({registerState, idx}) => {
 export default RegisterInfo; 
 
 
-const TagViewBox = styled.div`
-    width:568px;
-    height: auto; 
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    align-content: stretch;
-    margin-bottom: 20px;
-    margin-left:-8px;
-`;
 
-const TagMark = styled.div`
-    min-width: 8.5rem;
-    width: auto; 
-    height:3.2rem; 
-    text-align: center;
-    line-height:3.2rem;
-    background-color: #23242B;
-    border-radius:50px; 
-    color: #BDCBDD;
-    font-size: 1.4rem;
-    margin-left: 8px; 
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-`;
-
-const TagRemoveImg = styled.img`
-    width: 1.1rem;
-    height: 1.1rem;
-    cursor: pointer;
-    margin-left:0.7rem;
-`;
 
 const CheckboxContainer = styled.label`
     display: flex;
@@ -666,7 +632,7 @@ const CreatorTag = styled.div`
     height: auto;
     display: flex;
     align-items: center;
-    
+
     /* justify-content: space-between; */
     flex-wrap: wrap;
     margin-bottom: 15px;
@@ -782,3 +748,43 @@ const Tag = styled(Search)`
     }
 `;
 
+const TagViewBox = styled.div`
+    width:568px;
+    height: auto; 
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-content: stretch;
+    margin-bottom: 20px;
+    margin-left:-8px;
+`;
+
+const TagMark = styled.div`
+    min-width: 8.5rem;
+    width: auto; 
+    height:3.2rem; 
+    text-align: center;
+    line-height:3.2rem;
+    background-color: #23242B;
+    border-radius:50px; 
+    margin-left: 8px; 
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+`;
+
+const TagText = styled.div`
+    color: #BDCBDD;
+    font-size: 1.4rem;
+    margin: 0 5px 0 15px;
+`;
+
+const TagRemoveImg = styled.img`
+    width: 1.1rem;
+    height: 1.1rem;
+    cursor: pointer;
+
+    margin: 0 15px 0 8px;
+`;
