@@ -97,6 +97,8 @@ const DetailInfo = ({data, handleClickCollection, bookMarkIcon}) => {
                         </MoreCreator>   
                     : null 
                     }
+
+                    
                     </>
                 }
             </Creator>
@@ -106,7 +108,7 @@ const DetailInfo = ({data, handleClickCollection, bookMarkIcon}) => {
                 <div>Genre:</div>
                 {data.genre.map((gen,idx)=> {
                     return(
-                        <div key={idx}>
+                        <div key={gen}>
                             <span>{gen}</span>
                             <label></label>
                         </div>

@@ -43,8 +43,11 @@ export const registerinitialState = {
             tagItem: "",
             thumbnail_url:""
         }],
+
+
     creatorList : [],
     
+
     postForms: [{
         video_url:"",
         thumbnail_url:"",
@@ -56,6 +59,8 @@ export const registerinitialState = {
         agreement:false, 
     }],
 
+
+    
         
 }
 

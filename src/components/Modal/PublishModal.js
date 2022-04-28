@@ -24,8 +24,8 @@ const PublishModal = () => {
     const handleClickPublish = () => {
         //publish 하면 여기서 axios register
 
-        console.log(state.forms,"s")
-        //dispatch(registerNewDance(videoData))
+        console.log(state.postForms,"포스트폼 잘 들어가나?");
+        dispatch(registerNewDance(state.postForms))
         dispatch(closePublishModal());
           //잘 보내지면 아마 main으로 가던지 재렌더 하던지 
         

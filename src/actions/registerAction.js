@@ -209,6 +209,8 @@ export const addRegisterForm = () => {
     }
 }
 
+
+
 export const deleteRegisterForm = (value)=>{
     return { 
         type:DELETE_REGISTER_FORM,
@@ -216,12 +218,19 @@ export const deleteRegisterForm = (value)=>{
 
 }} 
 
+
+
+
 export const copyRegisterForm = (value) => {
     return { 
         type:COPY_REGISTER_FORM,
         payload: JSON.stringify(value)
     }
 }
+
+
+
+
 
 ///POST용 데이터 ///
 export const addRegisterFormPost = () => {
@@ -240,6 +249,8 @@ export const addRegisterFormPost = () => {
     }
 }
 
+
+
 export const deleteRegisterFormPost = (value)=>{
     return { 
         type:DELETE_REGISTER_FORM_POST,
@@ -247,12 +258,17 @@ export const deleteRegisterFormPost = (value)=>{
 
 }} 
 
+
+
+
 export const copyRegisterFormPost = (value) => {
     return { 
         type:COPY_REGISTER_FORM_POST,
         payload: JSON.stringify(value)
     }
 }
+
+
 
 
 ///POST용 데이터 ///
@@ -265,6 +281,10 @@ export const getCreatorList = (value) => {
     }
 }
 
+
+
+
+
 export const fetchCreatorList = () => dispatch => {
     axios
     .get(`https://api.moverse.club/v1/users?page=5`)
@@ -275,9 +295,12 @@ export const fetchCreatorList = () => dispatch => {
     .catch(err => console.log(err,"크리에이터에러"))
 }
 
-export const registerNewDance = (token, videoData) => dispatch => {
+
+
+
+export const registerNewDance = (token, dances) => dispatch => {
     axios
-    .post(`https://api.moverse.club/v1/dances`,videoData,{
+    .post(`https://api.moverse.club/v1/dances`,dances,{
         headers: {
             Authorization : `Bearer ${token}`
         },

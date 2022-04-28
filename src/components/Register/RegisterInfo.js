@@ -79,6 +79,7 @@ const RegisterInfo = ({registerState, idx}) => {
         }
     }
 
+    //console.log(state.forms[0].creator,"D")
 
 
     //크리에이터 검색 드롭다운*********************
@@ -281,19 +282,22 @@ const RegisterInfo = ({registerState, idx}) => {
             </CreatorBox>
             <CreatorTag>
             { state.forms[idx].creator && state.forms[idx].creator.map((tag, tagindex) => (
+                
                 <div key={tagindex}> 
-                    <img src={tag.imgUrl} alt="" />
+                    
+                    <ProfileImg src={tag.imgUrl} alt="" />
+                    
                     {tag.role !== "" ?   
-                        <> {`${tag.name} (${tag.role})`}</>
+                       <> <span>{`${tag.name}`}</span> <RoleBox role={tag.role}>{`(${tag.role})`}</RoleBox></>
                         :
-                        <> 
-                      
-                        {`${tag.name}`}</>
+                        <span> {`${tag.name}`}</span>
                     }
-                    <img src="https://velog.velcdn.com/images/beablessing/post/02197200-ff9a-45ee-b175-64ed5a0aacbb/image.png"
+
+                    <CloseImg src="https://velog.velcdn.com/images/beablessing/post/02197200-ff9a-45ee-b175-64ed5a0aacbb/image.png"
                     alt=""
                     onClick={() => ceatorRemoveTag(tagindex, idx) }
                     />
+
                 </div>   
             ))}
             </CreatorTag>
@@ -476,6 +480,7 @@ const StoryTitle = styled(Title)`
         width:67px;
     }
 `;
+
 const StoryContent = styled.textarea`
     width:100%;
     height:104px;
@@ -659,42 +664,62 @@ const Search = styled.div`
 const CreatorTag = styled.div`
     width: 566px;
     height: auto;
-
     display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        margin-bottom: 15px;
-    //gap: 1em;
-        
+    align-items: center;
+    
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+    margin-bottom: 15px;
     &>div{
-        flex-basis: 260px;
+        //flex-basis: 260px;
         flex-grow: 0;
         width: auto; 
-        min-width: 200px;
+        /* min-width: 200px; */
         height: 44px;
         background-color: #48506C;
         border-radius: 24px;
         display: flex;
         align-items: center;
-        justify-content: space-evenly;
+        justify-content: space-around;
         margin: 5px;
         font-size: 1.6rem;;
-        &>img {
-            width: 28px;
-            height: 28px;
-            object-fit: cover;
-        }
-        &> img {
-            width: 18px;
-            height:18px;
-            cursor: pointer;
+        &>span:nth-child(1) {  
+            //크리에이터 태그 속, 닉네임 텍스트
+            display: block;
+            color: blue; 
+            font-size:16px;
 
         }
     }
 `;
 
 
+const ProfileImg = styled.img`
+//(크리에이터 태그 속, 크리에이터 이미지)
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+    border-radius: 50%;
+    overflow: hidden;
+    
+    margin: 0 15px 0 13px;
+`; 
+
+
+const RoleBox = styled.div`
+//(크리에이터 태그 속, 크리에이터 역할)
+     display: block;
+     color: ${(props)=> (props.role === "Main Director") ? "#24D982" : "#F8F8F8"};
+     margin: 0 8px 0 8px;
+`;
+
+const CloseImg = styled.img`
+//(크리에이터 태그 속, 엑스이미지)
+    width: 18px;
+    height:18px;
+    cursor: pointer;
+    margin: 0 13px 0 15px;
+`;
 
 const AddBtn = styled.div`
     border:1px solid #24D982;
