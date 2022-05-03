@@ -68,7 +68,7 @@ export const fetchLogin =  (token) => dispatch => {
         }
     })  //profileImg
     .then((res)=> {
-        console.log(res,"로그인 성공")
+        console.log(res,"로그인 성공?")
             // islogin = true
             dispatch(loginSuccess()); 
             //getUserInfo

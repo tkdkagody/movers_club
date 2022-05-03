@@ -18,20 +18,7 @@ const DetailInfo = ({data, handleClickCollection, bookMarkIcon}) => {
     //data => 클릭한 비디오 개별 정보 ! 혹시 id값으로 해당 비디오만 가지고 오게 된다면 index에서 조정해주면 된다. 
     const [render, setRender] = useState(false);
 
-
-    // const creatorNum = [0,1,2,3,4,5,7];
-    // const desc = `This particular freeze is called a "baby" freeze because it's supposed to be one of the easiest ones to learn. It's a move where you hold your body low to the ground, balancing yourself on your hands and head with your feet in the air.    This particular freeze is called a "baby" freeze because it's supposed to be one of the easiest ones to learn. It's a move where you hold your body low to the ground, balancing yourself on your hands and head with your feet in the air.`
-    // const genres = ["Hip Hop","K-Pop"];
-    // const tags = ["tag_1","tag_2","tag_3"];
-    // const params = useParams();
-    // const state = useSelector(state => state.modalReducer); //모달
-
     const dispatch = useDispatch();
-    // const videoState = useSelector(state=> state.getVideoInfoReducer);
-    // const videoAllData = videoState.videoData.videoData;
-
-
-
 
     const creatorArrCopied = [...data.creator];
 
@@ -73,11 +60,12 @@ const DetailInfo = ({data, handleClickCollection, bookMarkIcon}) => {
             </ShareBox>
             <Creator>
                 {data && data.creator.length < 6 ? 
-                   <> {data.creator.map((el)=> <CreatorInfo key={el.id}>
+                   <> {data.creator.map((el)=> 
+                   <CreatorInfo key={el.id}>
                         <img src={el.imgUrl} alt=""></img>
                         <div>
-                            <span>{el.name}</span>
-                            <span>{el.role}</span>
+                            <NameTag>{el.name}</NameTag>
+                            <RoleTag role={el.role}>{el.role}</RoleTag>
                         </div>
                     </CreatorInfo>)} </>
                     :
@@ -85,8 +73,8 @@ const DetailInfo = ({data, handleClickCollection, bookMarkIcon}) => {
                     <CreatorInfo key={el.id}>
                         <img src={el.imgUrl} alt=""></img>
                         <div>
-                            <span>{el.name}</span>
-                            <span>{el.role}</span>
+                            <NameTag>{el.name}</NameTag>
+                            <RoleTag role={el.role}>{el.role}</RoleTag>
                         </div>
                     </CreatorInfo>)}
 
@@ -174,16 +162,31 @@ const CreatorInfo = styled.div`
     &>div {
         width: 81px;
         height:47px;
-        &>span{
-            display: block;
-            width: 100%;
-            height: 24px;
-            line-height: 24px;
-            font-size: 13px;
-        }
     }
  
 `;
+
+
+
+const NameTag = styled.span`
+    display: block;
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    font-size: 16px;
+    color: #F8F8F8;
+`;
+
+const RoleTag = styled.span`
+    display: block;
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    font-size: 13px;
+    color: ${(props)=> (props.role === "Main Director") ? "#24D982" : "#F8F8F8"};
+`;
+
+
 
 const MoreCreator = styled.div`
     width: 143px;

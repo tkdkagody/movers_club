@@ -24,6 +24,7 @@ const VideoIframe = ({registerState, idx} ) => {
         const postVal = [...state.postForms];
         postVal[index].agreement = event.target.checked;
         dispatch(clickAgreeChecked(postVal));
+        
     }
 
     return(

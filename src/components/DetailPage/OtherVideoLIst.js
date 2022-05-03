@@ -63,8 +63,9 @@ const TextBox = styled.div`
     width:100%;
     height: 24px;
     margin-bottom: 16px;
-    color:#90A0B7;
     line-height: 24px;
+    font-size: 18px;
+    color: #90A0B7; 
 `;
 
 const VideoBox = styled.div`

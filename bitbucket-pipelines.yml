@@ -1,0 +1,27 @@
+image: node:10.15.3
+
+pipelines:
+  branches:
+    develop:
+      - step:
+          name: build and s3 deploy
+          script:
+            - npm ci
+            - npm run build
+            - pipe: atlassian/aws-s3-deploy:1.1.0
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: "ap-northeast-2"
+                S3_BUCKET: "S3버킷"
+                LOCAL_PATH: "build"
+                EXTRA_ARGS: "--delete"
+      - step:
+          name: cloudfront invalidate
+          script:
+            - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: "ap-northeast-2"
+                DISTRIBUTION_ID: "클라우드 프론트 아이디"

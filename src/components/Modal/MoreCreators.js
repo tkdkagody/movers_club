@@ -52,7 +52,7 @@ const MoreCreators =() => {
                             <Profile src={el.imgUrl}/>
                             <UserInfo>
                                 <div>{el.name}</div>
-                                <div>{el.role}</div>
+                                <RoleTag role={el.role}>{el.role}</RoleTag>
                             </UserInfo>
                         </Content>
                         })}
@@ -174,12 +174,13 @@ const UserInfo = styled.div`
         color : #F8F8F8;
         font-size: 16px;
     }
-    &>div:nth-child(2){
-        height: 24px;
-        line-height: 24px;
-        color: #24D982;
-        font-size: 13px;
-    }
+`;
+
+const RoleTag = styled.div`
+    height: 24px;
+    line-height: 24px;
+    color: ${(props)=> (props.role === "Main Director") ? "#24D982" : "#F8F8F8"};
+    font-size: 13px;
 `;
 
 

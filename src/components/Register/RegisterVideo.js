@@ -15,7 +15,9 @@ const RegisterVideo = ({ handleClickUpload, registerState, idx}) => {
     const dispatch = useDispatch();
 
 
+    const  [isUrl, setIsUrl] = useState("");
     const handleChangeVideoUrl = (index, event) => {
+        setIsUrl(event.target.value)
         const values = [...state.forms];
         values[index][event.target.name] = event.target.value ;
         dispatch(extractVideoUrl(index, values));
@@ -45,7 +47,7 @@ const RegisterVideo = ({ handleClickUpload, registerState, idx}) => {
                 name="video_url"
                 ref={inputFocus}
                 ></input>
-                <div onClick={(event) => handleClickUpload(idx, event)}>Upload</div>
+                <UploadBtn color={isUrl} onClick={(event) => handleClickUpload(idx, event)}>Upload</UploadBtn>
             </UploadBox>
         </Container>
         </Box>
@@ -108,18 +110,24 @@ const UploadBox = styled.div`
         color: #48506C;
         border: none;
         text-indent: 16px;
+        &:focus { 
+            outline: none !important;
+            border: 1px solid #24D982;
+           
+}
     }
     
-    &>div {
+`;
+
+const UploadBtn = styled.div`
         width: 103px; 
         height:48px;
-        background-color: #24D982;
+        background-color: ${(props)=> props.color.length>10 ? "#24D982" : "rgba(36,217,130,0.3)"};
         margin-left: 12px;
         color: #16171C;
         text-align: center;
         line-height: 48px;
         cursor: pointer;
-    }
+        font-size: 18px;
 `;
-
 

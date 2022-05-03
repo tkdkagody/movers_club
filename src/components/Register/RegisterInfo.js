@@ -22,6 +22,9 @@ const RegisterInfo = ({registerState, idx}) => {
     const state = useSelector(state => state.registerReducer);
     const dispatch = useDispatch();
 
+    const genreFocus = useRef(null);
+
+
 
     //title 이랑 story 인풋
     const handleInputChange = (index, event) => {
@@ -33,8 +36,12 @@ const RegisterInfo = ({registerState, idx}) => {
         postVal[index][event.target.name] = event.target.value ;
         dispatch(getDanceTitle(postVal));
         dispatch(getDanceStory(postVal))
+
     } 
 
+
+
+    const [isgenreFocused, setIsgenreFocused] = useState(false);
       //장르드롭 관련 
       const genreOptions = [
         {key:1, genre: "Ballet"},
@@ -51,7 +58,10 @@ const RegisterInfo = ({registerState, idx}) => {
     }
     const handleClickOpenGenre = () => {
         setDropDownOpen(prev=> !prev);
+        setIsgenreFocused(prev => !prev)
     }
+
+    console.log(isgenreFocused,"포커스?")
     const onGenrSelected = (option, index) => {
         dispatch(getCreatorRole(option.role))
         setDropDownOpen(false);
@@ -231,12 +241,15 @@ const RegisterInfo = ({registerState, idx}) => {
                 <Title>
                     <div>Genres</div>
                 </Title>
-                <GenreContent  onClick={handleClickOpenGenre}>
+                <GenreContent  
+                color={isgenreFocused}
+                onClick={handleClickOpenGenre}>
                     <input
                         value={
                                 isCheckedGenre.length === 0 ? `Choose the genre(s) of the choreography.`
                                 : state.forms[idx].genre}
                         readOnly    
+                        ref={genreFocus}
                     ></input>
                     <img src="../../images/down_arrow.png" alt=""></img>
                     {dropDownOpen ? 
@@ -484,15 +497,14 @@ const GenreBox = styled(TitleBox)`
 const GenreContent = styled.div`
     width: 566px;
     height:52px;
-    border:2px solid  #48506C;
+    border: ${(props)=> props.color ? "2px solid #24D982" : "2px solid  #48506C"};
+   
     background-color: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
     padding: 1rem 0.2rem;
-   
-  
     &>input{
         width: 93%;
         height:40px;
@@ -503,6 +515,8 @@ const GenreContent = styled.div`
         border: none;
         cursor: pointer;
         text-indent : 5px;
+
+        }
     }
     &>img {
         width:12px;
@@ -523,20 +537,7 @@ const GenreDrop = styled.div`
     z-index: 15;
     padding:0; margin :0;
 
-    /* &>div {
-        width:540px;
-        height:28px;
-        margin: 14px 0 0 12px;
-        line-height: 28px;
-        display: flex;
-
-
-        &>label {
-            display: block;
-            cursor:pointer;
-            margin-top: -4px;
-        }
-    } */
+ 
 `;
 
 const GenreList = styled.label`
@@ -547,21 +548,7 @@ const GenreList = styled.label`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-  
-    /* &>input{
-        margin-left: 13px;
-        cursor:pointer;
-    }
-    &>label{
-        width: 100%;
-        height: 45px;
-        line-height: 45px;
-        display: block;
-    
-        margin-left: 13px;
-        font-size: 16px;
-        cursor:pointer;
-    } */
+
 `;
 
 const GenreTag = styled.div`

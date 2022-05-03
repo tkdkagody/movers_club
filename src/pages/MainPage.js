@@ -26,6 +26,8 @@ const MainPage = () => {
 
 
 
+    
+
 //페치배너
     useEffect(()=> {
         dispatch(fetchBanner());

@@ -128,11 +128,11 @@ const Register = () => {
 
 
 
+    const [isBubble, setIsBubble] = useState(false);
 
     return (
        <Container>
         {state.forms &&  state.forms.map((component,i) => { 
-        //console.log(i,"el값임")
             return(
                     <ContentBox key={i}>
                     <InputBox>
@@ -182,15 +182,17 @@ const Register = () => {
                     <div>Publish</div>
             </PublishBtnActive>
 
+
             <BtnBox>
                     <Btn onClick={clickAddRegister}>
                         <img src="../../images/add.png" alt=""></img>
                         <div>Upload More Moves</div>
                     </Btn>
-                    <div>
-                        <img src="../../images/onlyOne.png" alt=""></img>
-                    </div>
-            </BtnBox>    
+                    <Bubble src="../../images/onlyOne.png" alt="" />
+                </BtnBox>      
+                
+                   
+           
             {modalState.publishModalOpen ? <PublishModal/> : null}
        </Container>
     );
@@ -307,7 +309,7 @@ const PublishBtn = styled.div`
 `; 
 
 const PublishBtnActive = styled(PublishBtn)`
-    
+    width: 90%; 
     &>div:nth-child(1) {
         background-color: #24D982;
         cursor: pointer;
@@ -330,34 +332,47 @@ const BtnBox = styled.div`
     display: flex;
     align-items: flex-end;
     justify-content: center;
-  
-    &>div {
-        //말풍선
-        width: 321px;
-        height:52px;
-        margin-left: 12px; 
-        margin-bottom: 32px;;
-        &>img{
-
-        }
-    }
 
 `;
 const Btn = styled.div`
     width: 254px;
     height:52px;
+    border: 1px solid #BDCBDD;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #BDCBDD;
     cursor: pointer;
     font-size: 18px;
+    margin-bottom: 32px;
+
     &>img {
         width:28px;
         height:28px;
         margin-right: 16px;
     }
-    &>div {
 
-    }
 `;
+
+const Bubble = styled.img`
+    width: 321px;
+    height:52px;
+    margin-left: 12px; 
+    margin-bottom: 32px;
+    display: none;
+
+
+    ${Btn}:hover & {
+        display: block;
+      transform : scale(1.2,1.2)
+    }
+
+`;
+
+
+
+
+
+
+
+
+
