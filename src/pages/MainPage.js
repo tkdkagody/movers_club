@@ -9,7 +9,9 @@ import VideoList from '../components/VideoList';
 import { fetchBanner } from '../actions/bannerAction';
 import ExploreModal from "../components/Modal/ExploreModal";
 import ScrollButton from "../components/ScrollButton/index.js";
-
+//임시 데이터 더미
+import { BalletDummy } from '../videoInfoDummy';
+import { danceWorkDummy } from '../videoInfoDummy';
 
 const MainPage = () => {
 
@@ -46,71 +48,68 @@ const MainPage = () => {
 
 
 
-    const [dropFilter, setDropFilter] = useState("Sort by Newest"); 
     const genresTag = ["Ballet", "B-boy", "Contemporary", "DanceWorkout", "K-Pop", "Popping", "Etc"];
     const categories = ["All", ...new Set(genresTag.map((item)=> item))];
     const [activeCat, setActiveCat] = useState(categories);
 
+    // btn액티브시 버튼 색상 바꾸기 !!!
+    const [btnActive,setBtnActive] = useState({
+        "All" : false,
+        "Ballet" : false,
+        "B-boy" :  false,
+        "Contemporary" :  false,
+        "DanceWorkout" :  false,
+        "K-Pop" :  false,
+        "Popping" :  false,
+        "Etc" :  false,
 
+    });
 
+const [allbtn, setAllBtn] = useState(false); 
+
+    // const filteredData = videoAllData.filter((el) => {     
+    //     if(el.genre.indexOf(btn)  > -1 ){
+    //         return el;
+    //     }
+    // });
 
     const [videoArr, setVideoArr] = useState([]);  
     //바로 디스패치 해버리면 데이터가 짤리는 현상이 나타나서
     //개별 스크립트 내부에 모든 비디오리스트를 가지는 배열상태값 하나를 만들어 둠. 
-    
     if(videoArr && videoArr.length === 0){
         setVideoArr(videoAllData);
     }
-
-
     const activeCategory = (btn, idx) => {
         if(btn === "All"){
-            setVideoArr(videoAllData);
+            setVideoArr(videoAllData);          
+        }else if(btn === "Ballet") {
+            setVideoArr(BalletDummy);   
+        }else if(btn === "DanceWorkout"){
+            setVideoArr(danceWorkDummy);  
         }else {
-            const filteredData = videoAllData.filter((el) => {     
-                if(el.genre.indexOf(btn)  > -1 ){
-                    return el;
-                }
-            });
-            //dispatch(getVideoInfo(filteredData));
-            setVideoArr(filteredData);
+            setVideoArr(videoAllData);  
         }
-
-        
+        // else if(btn === "B-boy"){
+        //     setVideoArr([...videoAllData]);  
+        // }else if(btn === "Contemporary"){
+        //     setVideoArr(videoAllData);  
+        // }else if(btn === "DanceWorkout"){
+        //     setVideoArr([...danceWorkDummy]);  
+        // }else if(btn === "K-Pop"){
+        //     setVideoArr([...videoAllData]);  
+        // }else if(btn === "K-Pop"){
+        //     setVideoArr([...videoAllData]);  
+        // }else if(btn === "Popping"){
+        //     setVideoArr([...videoAllData]);  
+        // }else if(btn === "Etc"){
+        //     setVideoArr([...videoAllData]);  
+        // }
       };
-      
 
-
-    // const [sortDropOpen, setSortdropOpen] = useState(false);
-    // const handleClickFilterdrop = () => {
-    //     setSortdropOpen(prev => !prev);
-    // } 
-    // const handleClickSort = (li) => {
-    //     //이쪽 정렬은 state에 담긴 값을 가져와서 dispatch해주어야 함. 
-    //     //이후에 어디서든 비디오 리스트를 받아올때, 정렬 한번씩 돌려주기 
-    //     if(li === "newest"){
-    //         const vNewest = videoAllData.sort((a,b)=> {
-    //              return new Date(b.createdAt) - new Date(a.createdAt)
-    //         });
-    //         dispatch(getVideoInfo(vNewest));
-    //         setDropFilter("Sort by Newest");
-           
-    //     }else if(li === "popularity"){
-    //         const vPopularity = videoAllData.sort((a,b)=> {
-    //             return b.view - a.view; 
-    //        });
-    //        dispatch(getVideoInfo(vPopularity));
-    //        setDropFilter("Sort by popularity")
-    //     }
-    // }    
-    
-   
 if(render){
     return (
         <Container>
-         <MainSlider banner={bannerstate.bannerItem}/>
-            <DoxBox>
-            </DoxBox>
+         {/* <MainSlider banner={bannerstate.bannerItem}/> */}
             <TagBorder>
                 <TagBox>
                      {activeCat.length && activeCat.map((genre, idx)=> {
@@ -119,40 +118,33 @@ if(render){
                                 key={idx}
                                 genre={genre} 
                                 onClick={() => activeCategory(genre,idx)}
+                                color={btnActive}
                             >{genre}</Tag>)
                      })}
                 </TagBox>
             </TagBorder>
             <SubNav>
-                 <TotalBox>{videoArr && videoArr.length.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} Moves in total</TotalBox>
-                 {/* mvp에서는 솔트 빠짐 */}
-                 {/* <SelectBox onClick={handleClickFilterdrop}>
-                    <div>
-                        <span>{dropFilter}</span>
-                        <img src="../../images/arrow_drop_down.svg" alt=""></img>
-                    </div>
-                    {sortDropOpen ? 
-                        <Drop>
-                            <li onClick={()=> handleClickSort("newest")}>Sort by newest</li>
-                            <li onClick={()=> handleClickSort("popularity")}>Sort by popularity</li>
-                        </Drop>
-                    : null}
-                    
-                </SelectBox> */}
-                
+                <TotalBox>
+                    {
+                    videoArr ? videoArr.length.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+                    : videoAllData.length.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+                    } Moves in total
+                </TotalBox>
             </SubNav>
             <VContainer>
-                <VideoList videoAllData={videoArr}/>
+                <VideoList videoAllData={videoArr} />
             </VContainer>
-         {modalState.modalOpen ? <ExploreModal/> : null}
-         <ScrollButton/>
+            {/* 회원가입하고 메인페이지 넘어올때 뜨는 모달 */}
+            {modalState.loginModalOpen ? <ExploreModal/> : null}
+            {/* 스크롤탑버튼 */}
+            <ScrollButton/>
         </Container>
 
       
      );
 }else {
     return (
-        <>로딩</>
+        <>loading....</>
     )
 }
 
@@ -161,9 +153,7 @@ if(render){
 
 export default MainPage;
 
-
 const Container = styled.div`
-
     width:100%;
     height: auto;
     background-color: black;
@@ -232,12 +222,17 @@ const Tag = styled.button`
     font-size:18px;
     background-color: black;
     color: #717F92;
+    //color: ${props => !props.color ? "#717F92"  : "#24D982"}
     border: none;
+
     &:active, 
-    &:hover,
     &:focus{ 
         color:#24D982;
+    } 
+    &:hover {
+        color:#24D982;
     }
+
 `;
 
 const TagActive = styled(Tag)`

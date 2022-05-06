@@ -10,8 +10,7 @@ const VideoList = ({videoAllData}) => {
 
     //이페이지의 비디오 데이터는 !!! 메인페이지에서 프롭스로 받아오기
     //리덕스에 넣지 말기 
-    console.log(videoAllData,"받아오는 프롭스")
-
+   
     const modalState = useSelector(state => state.modalReducer);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -19,6 +18,8 @@ const VideoList = ({videoAllData}) => {
     const videoState = useSelector(state => state.getVideoInfoReducer);
     const allData = videoState.videoData.videoData;
     // console.log(videoAllData,"비디오리스트 컴포넌트 비디오리스트");
+    
+    
     if(videoAllData === undefined){
         videoAllData = allData; 
     }
@@ -30,35 +31,43 @@ const VideoList = ({videoAllData}) => {
         navigate(`/vdetail/${id}`);
     }
 
-
+    console.log(videoAllData.length,"받아오는 프롭스");
     
     return (
        <>
        {videoAllData && videoAllData.map((el,idx)=> {
-           return (
-            <VideoBox key={el.id} onClick={() => handleClickId(el.id)}>
-                <VideoImg src={el.videoThum}></VideoImg>
-                <TitleBox>
+           return (<>
+           <VideoBox key={el.id} onClick={() => handleClickId(el.id)}>
+           <VideoImg src={el.videoThum}></VideoImg>
+            <TitleBox>
                     <div>{el.title}</div>
-                </TitleBox>
-                <InfoBox>
-                    <img src={el.creator[0].imgUrl} alt="" ></img>
-                    <div>{`${el.creator[0].name} + ${el.creator.length-1}`}</div>
-                    <div></div>
-                    <div>{`${el.genre[0]} + ${el.genre.length-1}`}</div>
-                </InfoBox>
-            </VideoBox>
+            </TitleBox>
+             <InfoBox>
+                   <img src={el.creator[0].imgUrl} alt="" ></img>
+                     <div>{`${el.creator[0].name} + ${el.creator.length-1}`}</div>
+                     <div></div>
+                     <div>{`${el.genre[0]} + ${el.genre.length-1}`}</div>
+                  </InfoBox></VideoBox>
+                  </>
+     
+            //  <VideoBox key={el.id} onClick={() => handleClickId(el.id)}>
+            //      <VideoImg src={el.videoThum}></VideoImg>
+            //     <TitleBox>
+            //         <div>{el.title}</div>
+            //     </TitleBox>
+            //     <InfoBox>
+            //         <img src={el.creator[0].imgUrl} alt="" ></img>
+            //         <div>{`${el.creator[0].name} + ${el.creator.length-1}`}</div>
+            //         <div></div>
+            //         <div>{`${el.genre[0]} + ${el.genre.length-1}`}</div>
+            //     </InfoBox>
+            // </VideoBox>
            )
        })}
        
        </>
     )
 
-    // return(
-    //     <VideoBox >
-    //         <VideoImg ></VideoImg>
-    //     </VideoBox>
-    // )
 }
 
 export default VideoList; 

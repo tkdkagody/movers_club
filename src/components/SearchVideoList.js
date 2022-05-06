@@ -4,7 +4,6 @@ import { useNavigate,Link, Outlet, useParams, useLocation, useMatch} from "react
 
 
 const SearchVideoList = ({videoData}) => {
-    // console.log(videoData.Thum,"써네일")
     const navigate = useNavigate();
 
     const handleClickVideo =() => {

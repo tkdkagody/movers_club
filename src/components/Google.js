@@ -36,8 +36,10 @@ const Google = ({handleClickGoogle}) => {
       dispatch(fetchToken(
         res.accessToken, res.profileObj.email,res.profileObj.name,res.profileObj.imageUrl
       ));
-      navigate('/main'); 
       dispatch(OpenLoginModal())
+      setTimeout(()=> {
+        navigate('/main'); 
+      },200)
       //islogin true, info들 받아옴 
      
     }

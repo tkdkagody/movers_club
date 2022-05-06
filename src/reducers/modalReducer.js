@@ -13,9 +13,10 @@ const modalReducer = (state = modalInitialState, action) => {
         return Object.assign(
             {},
             state,
-            { loginModalOpen: action.payload}
+            { loginModalOpen: action.payload.loginModalOpen}
         );
         break;
+
 
 
         case CLOSE_LOGIN_MODAL: 
@@ -27,6 +28,7 @@ const modalReducer = (state = modalInitialState, action) => {
             {loginModalOpen: false}
         );
         break;
+
 
         case OPEN_PUBLISH_MODAL: 
         //todo
