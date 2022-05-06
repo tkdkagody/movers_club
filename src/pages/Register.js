@@ -6,6 +6,7 @@ import RegisterVideo from "../components/Register/RegisterVideo";
 import VideoIframe from "../components/Register/VideoIframe";
 import axios from "axios";
 import { 
+
     extractVideoId, 
     viewVideoThumnail, 
     DeleteVideoThumnail, 
@@ -17,12 +18,15 @@ import {
     addRegisterFormPost,
     deleteRegisterFormPost,
     copyRegisterFormPost,
-
+  
+    
     setFormValues,
     extractVideoUrl,
     fetchCreatorList,  //creator리스트
     registerNewDance,
     getThumnailUrl,
+
+
 } from "../actions/registerAction";
 import {
     OpenLoginModal, OpenPublishModal,closePublishModal
@@ -37,6 +41,9 @@ const Register = () => {
     const modalState = useSelector(state => state.modalReducer);
     const dispatch = useDispatch();
     //업로드 버튼 클릭
+
+
+
 
 
 
@@ -101,6 +108,7 @@ const Register = () => {
         dispatch(addRegisterFormPost());
     }
 
+
 //해당 폼 삭제
     const clickDeleteRegister = (idx) => {
         const values = [...state.forms];
@@ -111,6 +119,7 @@ const Register = () => {
         dispatch(deleteRegisterFormPost(postVal));
     }
 
+
 //해당 폼 복사 
     const clickCopyRegister = (idx) => {
         const val = [...state.forms];
@@ -118,13 +127,6 @@ const Register = () => {
         const postVal = [...state.postForms];
         dispatch(copyRegisterFormPost(postVal[idx]));
     }
-
-
-    //크리에이터 리스트 요청하기 
-
-    useEffect(()=> {
-        dispatch(fetchCreatorList())
-    },[])
 
 
 

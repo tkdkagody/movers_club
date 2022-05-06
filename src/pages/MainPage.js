@@ -35,7 +35,7 @@ const MainPage = () => {
         setVideoArr(videoAllData);
     },[]);
 
-
+//렌더시간 조절(스테이트가져오기)
     useEffect(()=> {
         setTimeout(()=> {
             setRender(true);

@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from 'styled-components';
 import { useDispatch, useSelector } from "react-redux";
 //import withClickOutside from "./withClickOutside";
-import { getCreator,getCreatorImg } from "../../actions/registerAction";
+import { getCreator,getCreatorImg,   
+fetchCreatorList,  //creator리스트 
+} from "../../actions/registerAction";
 
 
 const SelectDropdown = ({
@@ -30,12 +32,20 @@ const SelectDropdown = ({
         }else {
             setNameDropOpen(false);
         }
+
+            //크리에이터 리스트 요청하기 
+            dispatch(fetchCreatorList(registerState.forms[index].searchInputValue))
+  
+
+            console.log(registerState.forms[index].searchInputValue,"abc?")
+        
     
     }
 
 
     //크리에이터 검색 박스 클릭시 드롭다운 오픈!
     const clickDropBox = (index) => {
+
         if(registerState.forms[index].searchInputValue && registerState.forms[index].searchInputValue.length <=1){
             console.log(registerState.forms[index].searchInputValue)
             setNameDropOpen(false)

@@ -285,15 +285,21 @@ export const getCreatorList = (value) => {
 
 
 
-export const fetchCreatorList = () => dispatch => {
+export const fetchCreatorList = (searchword) => dispatch => {
+    console.log(searchword,"~!@!@")
+    const url = `http://api1.moverse.club/api/userlike`;
     axios
-    .get(`https://api.moverse.club/v1/users?page=5`)
+    .get(url,{
+        params: {search : searchword }
+    })
     .then((res)=> {
-        //console.log(res.data.data.userList,"크리에이터리스트");
+        console.log(res.data.data.userList,"크리에이터리스트");
         dispatch(getCreatorList(res.data.data.userList))
     })
     .catch(err => console.log(err,"크리에이터에러"))
 }
+
+
 
 
 

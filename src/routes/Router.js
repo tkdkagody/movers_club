@@ -25,6 +25,7 @@ import { getVideoInfo, getClickedInfo } from "../actions/getVideoInfoAction";
 import  {videoInfoDummy}  from "../videoInfoDummy";
 import ScrollButton from "../components/ScrollButton/index.js";
 
+
 const MyRouter = () => {
 
   const dispatch = useDispatch();
@@ -77,6 +78,7 @@ const MyRouter = () => {
             <Route path="/invite" element={<InvitePage />} />
             <Route path="/edit_profile" element={<EditPage />} />
             <Route path="/setting" element={<SetPage />} ></Route>
+  
         </Routes>
         
         </>
