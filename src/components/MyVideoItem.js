@@ -6,7 +6,7 @@ import { getVideoInfo, getClickedInfo } from "../actions/getVideoInfoAction";
 import DetailPage from "../components/DetailPage";
 import { useNavigate,Link, Outlet, useParams, useLocation, useMatch} from "react-router-dom";
 
-const VideoList = ({videoAllData}) => {
+const MyVideoItem = ({videoAllData}) => {
 
     //이페이지의 비디오 데이터는 !!! 메인페이지에서 프롭스로 받아오기
     //리덕스에 넣지 말기 
@@ -57,7 +57,7 @@ const VideoList = ({videoAllData}) => {
 
 }
 
-export default VideoList; 
+export default MyVideoItem; 
 
 
 const VideoBox = styled.div`

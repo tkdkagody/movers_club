@@ -8,7 +8,7 @@ import Welcome from "../pages/Welcome";
 import Register from "../pages/Register";
 import SearchPage from "../pages/Search";
 import Detailpage from "../components/DetailPage";
-import Mypage from "../pages/MypageCollections";
+import Mypage from "../pages/Mypage";
 import InvitePage from "../components/MyPage/InvitePage";
 import EditPage from "../components/MyPage/EditPage";
 import SetPage from "../components/MyPage/Setting";
@@ -72,9 +72,9 @@ const MyRouter = () => {
             </Route>
             <Route path="/register" element={<Register/>} />
             <Route path="/search" element={<SearchPage />} />
-            <Route path="/mypage/mycollections" element={<MypageCollections />} />
-            <Route path="/mypage/mymoves" element={<MypageMoves />} />
-            <Route path="/mypage" element={<MypageMoves />} />
+            {/* <Route path="/mypage/mycollections" element={<MypageCollections />} />
+            <Route path="/mypage/mymoves" element={<MypageMoves />} /> */}
+            <Route path="/mypage" element={<Mypage />} />
             <Route path="/invite" element={<InvitePage />} />
             <Route path="/edit_profile" element={<EditPage />} />
             <Route path="/setting" element={<SetPage />} ></Route>
